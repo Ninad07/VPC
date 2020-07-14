@@ -4,16 +4,6 @@ provider "aws" {
 }
 
 #VARIABLES
-variable "public_subnet_cidr" {
-  description = "CIDR for public subnet"
-  default = "10.0.0.0/24"
-}
-
-variable "private_subnet_cidr" {
-  description = "CIDR for private subnet"
-  default = "10.0.1.0/24"
-}
-
 variable "vpc_cidr" {
   description = "CIDR for the whole VPC"
   default = "192.10.0.0/16"
@@ -123,9 +113,9 @@ resource "aws_security_group" "wordpress_sec" {
 
 
 
-#MYSQL SERVER SECURITY GROUP 
-resource "aws_security_group" "mysql_sec" {
-  name = "mysql-sec"
+#MARIADB SERVER SECURITY GROUP 
+resource "aws_security_group" "mariadb_sec" {
+  name = "mariadb-sec"
   description = "Allow only Apache Webserver traffic inbound"
   vpc_id = aws_vpc.main.id
   tags = {
@@ -185,7 +175,7 @@ resource "aws_eip" "dbeip" {
 }
 
  
-#MYSQL INSTANCE
+#MARIADB INSTANCE
 resource "aws_instance" "mariadb" {
   ami = "ami-07db174826ca4a3c9"
   availability_zone = "ap-south-1b"
